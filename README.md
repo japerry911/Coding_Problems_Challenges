@@ -10,6 +10,7 @@ Languages:
 - C
 - Haskell
 - NASM Assembler
+- Rust
 
 <br /><br /><br />
 Notes:
