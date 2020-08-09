@@ -38,5 +38,16 @@ fn main() {
 }
 
 fn max_product(mut lst:Vec<i32>, n_largest_elements:i32) -> i32 {
-    return 0;
+    let mut return_product:i32 = 1;
+    lst.sort();
+
+    for _ in 0..n_largest_elements {
+        let popped_element = lst.pop();
+        return_product *= match popped_element {
+            Some(x) => x,
+            None => 1
+        }
+    }
+
+    return return_product;
 }
