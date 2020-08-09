@@ -32,6 +32,22 @@ fn main() {
 }
 
 fn first_non_consecutive(arr: &Vec<i32>) -> Option<i32> {
-    println!("{:?}", arr);
-    return Some(10);
+    if arr.len() == 0 {
+        return None;
+    }
+
+    let mut previous = arr[0];
+    for ele in arr {
+        if *ele == previous {
+            continue;
+        }
+
+        if *ele != previous + 1 {
+            return Some(*ele);
+        }
+
+        previous = *ele;
+    }
+
+    return None;
 }
