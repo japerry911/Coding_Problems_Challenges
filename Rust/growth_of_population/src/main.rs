@@ -32,8 +32,20 @@ if the parameter percent is 2 you have to convert it to 0.02.
 
 fn main() {
     println!("15 = {}", nb_year(1500, 5.0, 100, 5000));
+    println!("10 = {}", nb_year(1500000, 2.5, 10000, 2000000));
+    println!("484 = {}", nb_year(273005, 0.1, 1365, 1289385));
 }
 
 fn nb_year(p0:i32, percent:f64, aug:i32, p:i32) -> i32 {
-    return 0;
+    let mut current_population:f64 = p0 as f64;
+    let mut years = 0;
+    let percent_adjusted = percent / 100.0;
+
+    while (current_population).floor() < p as f64 {
+        current_population += (current_population * percent_adjusted).floor();
+        current_population += aug as f64;
+        years += 1;
+    }
+
+    years
 }
