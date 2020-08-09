@@ -3,5 +3,10 @@ fn main() {
 }
 
 fn update_light(current:&str) -> String {
-    "".to_string()
+    match current {
+        "green" => "yellow".to_string(),
+        "yellow" => "red".to_string(),
+        "red" => "green".to_string(),
+        _ => "BROKEN".to_string()
+    }
 }
