@@ -7,10 +7,31 @@ and ' ' that are represented by '27', '28' and '29' respectively.
 All inputs will be valid.
  */
 
+use std::collections::HashMap;
+
 fn main() {
     println!("{}", switcher(vec!["24", "12", "23", "22", "4", "26", "9", "8"]));
 }
 
 fn switcher(numbers:Vec<&str>) -> String {
-    String::from("TODO")
+    numbers.iter().map(|x| match x.parse::<u8>().unwrap() {
+        27 => '!',
+        28 => '?',
+        29 => ' ',
+        x => ('a' as u8 + (26 - x) as u8) as char
+    }).collect()
+
+    // Solution 1
+    /*let mut return_string = String::new();
+    let letter_map:HashMap<&str, char> = [("1", 'z'), ("2", 'y'), ("3", 'x'), ("4", 'w'),
+        ("5", 'v'), ("6", 'u'), ("7", 't'), ("8", 's'), ("9", 'r'), ("10", 'q'), ("11", 'p'),
+        ("12", 'o'), ("13", 'n'), ("14", 'm'), ("15", 'l'), ("16", 'k'), ("17", 'j'), ("18", 'i'),
+        ("19", 'h'), ("20", 'g'), ("21", 'f'), ("22", 'e'), ("23", 'd'), ("24", 'c'), ("25", 'b'),
+        ("26", 'a'), ("27", '!'), ("28", '?'), ("29", ' ')].iter().cloned().collect();
+
+    for c in numbers {
+        return_string.push(letter_map[c]);
+    }
+
+    return_string*/
 }
