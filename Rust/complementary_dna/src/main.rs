@@ -20,5 +20,37 @@ fn main() {
 }
 
 fn dna_strand(dna:&str) -> String {
-    return "".to_string();
+    let mut adjusted_dna = String::new();
+
+    for c in dna.chars() {
+        if c == 'A' {
+            adjusted_dna.push('T');
+        } else if c == 'T' {
+            adjusted_dna.push('A');
+        } else if c == 'C' {
+            adjusted_dna.push('G');
+        } else if c == 'G' {
+            adjusted_dna.push('C');
+        } else {let mut adjusted_dna = String::new();
+
+            for c in dna.chars() {
+                if c == 'A' {
+                    adjusted_dna.push('T');
+                } else if c == 'T' {
+                    adjusted_dna.push('A');
+                } else if c == 'C' {
+                    adjusted_dna.push('G');
+                } else if c == 'G' {
+                    adjusted_dna.push('C');
+                } else {
+                    adjusted_dna.push(c);
+                }
+            }
+
+            return adjusted_dna;
+            adjusted_dna.push(c);
+        }
+    }
+
+    return adjusted_dna;
 }
