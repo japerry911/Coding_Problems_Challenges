@@ -16,5 +16,16 @@ fn main() {
 }
 
 fn generate_shape(n:i32) -> String {
-    return "".to_string();
+    let mut square = String::new();
+
+    for r in 0..n {
+        for _ in 0..n {
+            square.push('+');
+        }
+        if r < n - 1 {
+            square.push('\n');
+        }
+    }
+
+    return square;
 }
