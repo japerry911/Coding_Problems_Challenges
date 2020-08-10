@@ -23,10 +23,33 @@ You can see another examples in the "Sample tests".
  */
 
 fn main() {
-    println!("{}", meeting("Alex:Arno;Alissa:Cornwell;Sarah:Bell;Andrew:Dorries;Ann:Kern;\
-                              Haley:Arno;Paul:Dorny;Madison:Kern"));
+    println!("{}", meeting("Alissa:Cornwell;Sarah:Bell;Andrew:Dorries;Ann:Kern;\
+                              Haley:Arno;Paul:Dorny;Madison:Kern;Alex:Arno"));
 }
 
 fn meeting(s:&str) -> String {
-    "".to_string()
+    let mut return_string = String::new();
+
+    let uppercase_split_s = s.to_uppercase();
+    let mut vec:Vec<Vec<&str>> = uppercase_split_s.split(";").map(|ele| {
+        ele.split(":").collect()})
+        .collect();
+
+    vec.sort_by(|a, b| {
+        return if a[1].eq(b[1]) {
+            a[0].cmp(&b[0])
+        } else {
+            a[1].cmp(&b[1])
+        }
+    });
+
+    for (index, name) in vec.iter().enumerate() {
+        return_string.push('(');
+        return_string.push_str(name[1]);
+        return_string.push_str(&", ".to_string());
+        return_string.push_str(name[0]);
+        return_string.push(')');
+    }
+
+    return_string
 }
