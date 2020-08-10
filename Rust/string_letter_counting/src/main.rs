@@ -16,10 +16,27 @@ Examples
 "555"                       ==>  ""
  */
 
+use std::collections::BTreeMap;
+
 fn main() {
-    println!("{}", string_letter_count(&"The quick brown fox jumps over the lazy dog."));
+    println!("{}", string_letter_count(&"The time you enjoy wasting is not wasted time."));
 }
 
 fn string_letter_count(s:&str) -> String {
-    return "".to_string();
+    let mut letters_map:BTreeMap<char, u8> = BTreeMap::new();
+
+    for c in (&s).chars() {
+        if c.is_alphabetic() {
+            *letters_map.entry(c.to_ascii_lowercase()).or_insert(0) += 1;
+        }
+    }
+
+    let mut return_string:String = String::new();
+
+    for (letter, times) in &letters_map {
+        return_string.push_str(&times.to_string());
+        return_string.push(*letter);
+    }
+
+    return_string
 }
