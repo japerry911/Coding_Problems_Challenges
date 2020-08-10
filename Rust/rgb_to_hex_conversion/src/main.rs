@@ -23,5 +23,42 @@ fn main() {
 }
 
 fn rgb(r:i32, g:i32, b:i32) -> String {
-    "not done".to_string()
+    let mut converted_hex = String::new();
+
+    let red:String = convert_to_hex(r);
+    let green:String = convert_to_hex(g);
+    let blue:String = convert_to_hex(b);
+
+    converted_hex.push_str(&red);
+    converted_hex.push_str(&green);
+    converted_hex.push_str(&blue);
+
+    converted_hex
+}
+
+fn convert_to_hex(mut i:i32) -> String {
+    if i <= 0 {
+        return "00".to_string();
+    } else if i > 255 {
+        i = 255;
+    }
+
+    let mut first:String = convert_to_single_hex(i / 16);
+    let second:String = convert_to_single_hex(i % 16);
+    first.push_str(&second);
+
+    first
+}
+
+fn convert_to_single_hex(i:i32) -> String {
+    match i {
+        0..=9 => i.to_string(),
+        10 => "A".to_string(),
+        11 => "B".to_string(),
+        12 => "C".to_string(),
+        13 => "D".to_string(),
+        14 => "E".to_string(),
+        15 => "F".to_string(),
+        _ => "0".to_string()
+    }
 }
