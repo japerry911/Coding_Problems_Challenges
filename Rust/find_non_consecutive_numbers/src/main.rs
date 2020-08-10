@@ -26,8 +26,29 @@ The numbers could be positive and/or negetive and the gap could be larger than o
 
 fn main() {
     println!("{:?}", all_non_consecutive(&[1, 2, 3, 4, 6, 7, 8, 10]));
+    println!("{:?}", all_non_consecutive(&[]));
+    println!("{:?}", all_non_consecutive(&[1]));
 }
 
 fn all_non_consecutive(arr:&[i32]) -> Vec<(usize, i32)> {
-    return vec![(0, 0)];
+    if arr.len() <= 1 {
+        return Vec::new();
+    }
+
+    let mut return_vec:Vec<(usize, i32)> = Vec::new();
+    let mut previous_value:i32 = arr[0];
+
+    for (index, val) in arr.iter().enumerate() {
+        if index == 0 {
+            continue;
+        }
+
+        if previous_value + 1 != *val {
+            return_vec.push((index, *val));
+        }
+
+        previous_value = *val;
+    }
+
+    return_vec
 }
