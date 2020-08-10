@@ -1,9 +1,63 @@
+use regex::Regex;
+
 fn main() {
     println!("ladder > prx: $112 qty: 12 = {}", catalog(&s(), "ladder"));
+    println!("{}",
+             catalog(&s(), "saw"));
+    println!("{}", catalog(&s(), "bazooka"));
 }
 
 fn catalog(s: &str, article: &str) -> String {
-    "".to_string()
+    let re = Regex::new(r"^<prod><name>([A-Za-z\d\s]+)</name>(<prx>[0-9]+(\.[0-9]+)?)</prx>(<qty>[0-9]+</qty>)</prod>$").unwrap();
+    let split_s = s.split("\n\n").into_iter();
+    let mut fetched_items:Vec<&str> = Vec::new();
+
+    for line_item in split_s {
+        let regex_result = re.captures_iter(&line_item);
+        for cap in regex_result {
+            let match_result = match &cap.get(1) {
+                Some(x) => {
+                    if x.as_str().contains(&article) || x.as_str() == article {
+                        Some(line_item)
+                    } else {
+                        None
+                    }
+                },
+                _ => None
+            };
+
+            if match_result.is_some() {
+                fetched_items.push(match_result.unwrap());
+            }
+        }
+    }
+
+    let mut return_string = String::new();
+    let fetched_length = fetched_items.len();
+
+    if fetched_length == 0 {
+        return "Nothing".to_string();
+    }
+
+    for (index, item) in fetched_items.into_iter().enumerate() {
+        let mut cleaned_up_item = item
+            .replace("<prod>", "")
+            .replace("<name>", "")
+            .replace("</name>", " > ")
+            .replace("<prx>", "prx: $")
+            .replace("</prx>", " qty: ")
+            .replace("<qty>","")
+            .replace("</qty>", "")
+            .replace("</prod>", "");
+
+        if index < fetched_length - 1 {
+            cleaned_up_item.push('\n');
+        }
+
+        return_string.push_str(cleaned_up_item.as_str());
+    }
+
+    return_string
 }
 
 fn s() -> String {
