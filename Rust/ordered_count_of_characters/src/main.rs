@@ -15,5 +15,27 @@ fn main() {
 }
 
 fn ordered_count(sip: &str) -> Vec<(char, i32)> {
-    return vec![];
+    // Solution 2
+    sip.chars().fold(Vec::new(), |mut accumlator:Vec<(char, i32)>, cv| {
+        match accumlator.iter().position(|&t| t.0 == cv) {
+            Some(x) => accumlator[x].1 += 1,
+            None => accumlator.push((cv, 1))
+        };
+        accumlator
+    })
+
+
+    // Solution 1
+    /*let mut return_vec:Vec<(char, i32)> = Vec::new();
+
+    for c in sip.chars() {
+        let position = return_vec.iter().position(|&t| t.0 == c);
+        if position.is_none() {
+            return_vec.push((c, 1));
+        } else {
+            return_vec[position.unwrap()].1 += 1;
+        }
+    }
+
+    return return_vec;*/
 }
