@@ -34,5 +34,34 @@ fn main() {
 }
 
 fn get_order(input: String) -> String {
-    "".to_string()
+    let items: Vec<&str> = vec!["Burger ", "Fries ", "Chicken ", "Pizza ", "Sandwich ",
+                                "Onionrings ", "Milkshake ", "Coke "];
+    let mut return_string:String = String::new();
+    for item in items {
+        for _ in 0..input.matches(&item.to_lowercase().trim_end()).count() {
+            return_string.push_str(item);
+        }
+    }
+
+    return_string.trim_end().to_string()
+
+    /*let master_vec:Vec<(String, String)> = [("burger", "Burger "), ("fries", "Fries "),
+        ("chicken", "Chicken "), ("pizza", "Pizza "), ("sandwich", "Sandwich "),
+        ("onionrings", "Onionrings "), ("milkshake", "Milkshake "), ("coke", "Coke ")]
+        .iter()
+        .map(|&p| (p.0.to_string(), p.1.to_string()))
+        .collect();
+    let mut return_string:String = String::new();
+    let mut input_copy:String = input;
+
+    for t in &master_vec {
+        let mut find_elements = input_copy.find(&t.0);
+        while find_elements.is_some() {
+            return_string.push_str(&t.1);
+            input_copy = input_copy.replacen(&t.0, "", 1);
+            find_elements = input_copy.find(&t.0);
+        }
+    }
+
+    return_string.trim_end().to_string()*/
 }
