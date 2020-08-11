@@ -26,14 +26,45 @@ assert_eq!(who_is_next(names, 52), Name::Penny);
 assert_eq!(who_is_next(names, 7230702951), Name::Leonard);
  */
 
+use std::thread::current;
+
 fn main() {
-    who_is_next(&vec![
+    println!("{:?}", who_is_next(&vec![
         Name::Sheldon,
         Name::Leonard,
         Name::Penny,
         Name::Rajesh,
         Name::Howard,
-    ], 6);
+    ], 7_230_702_951));
+    println!("{:?}", who_is_next(&vec![
+        Name::Sheldon,
+        Name::Leonard,
+        Name::Penny,
+        Name::Rajesh,
+        Name::Howard],
+    10));
+    println!("{:?}", who_is_next(&vec![
+        Name::Rajesh,
+        Name::Sheldon,
+        Name::Leonard,
+        Name::Sheldon,
+        Name::Penny,
+        Name::Howard], 4202546056496772934));
+    println!("{:?}", who_is_next(&vec![
+        Name::Penny,
+        Name::Rajesh,
+        Name::Howard,
+        Name::Sheldon,
+        Name::Sheldon,
+        Name::Sheldon,
+        Name::Howard,
+        Name::Penny,
+        Name::Howard,
+        Name::Penny,
+        Name::Howard,
+        Name::Leonard,
+        Name::Rajesh,
+        Name::Leonard], 25586));
 }
 
 #[derive(Debug, Eq, PartialEq, Copy, Clone)]
@@ -42,6 +73,40 @@ enum Name { Sheldon, Leonard, Penny, Rajesh, Howard }
 type Names = Vec<Name>;
 
 fn who_is_next(names: &Names, n: usize) -> Name {
-    println!("{:?}", names);
-    return names[0];
+    if n < names.len() {
+        return names[n - 1];
+    }
+
+    let mut index_count:f64 = names.len() as f64;
+    let mut current_iteration:f64 = 1.0;
+    let two:f64 = 2.0;
+
+    loop {
+        index_count += two.powf(current_iteration) * names.len() as f64;
+        if index_count >= n as f64 {
+            break;
+        }
+        current_iteration += 1.0;
+    }
+
+    index_count -= two.powf(current_iteration) * names.len() as f64;
+
+    let repeats:f64 = two.powf(current_iteration);
+    let something:f64 = n as f64 - index_count - 1.0;
+    let final_index:usize = (something / repeats) as usize;
+
+    names[final_index]
+
+    // Brute Force - Too Slow
+    /*let mut cola_queue = names.clone();
+    let mut counter = 0;
+
+    while cola_queue.len() < n {
+        let push_name = cola_queue[counter];
+        cola_queue.push(push_name);
+        cola_queue.push(push_name);
+        counter += 1;
+    }
+
+    cola_queue[n - 1]*/
 }
