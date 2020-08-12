@@ -1,18 +1,12 @@
 defmodule LoveVsFriendship do
-  @moduledoc """
-  Documentation for `LoveVsFriendship`.
-  """
+  def words_to_marks(s) do
+    s
+    |> String.graphemes()
+    |> Enum.map(&process_character/1)
+    |> Enum.sum()
+  end
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> LoveVsFriendship.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def process_character(<<v::utf8>>) do
+    v - 96
   end
 end
