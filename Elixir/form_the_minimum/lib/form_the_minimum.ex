@@ -1,5 +1,9 @@
 defmodule FormTheMinimum do
   def minValue(numbers) do
-    0
+    numbers
+    |> Enum.uniq()
+    |> Enum.sort()
+    |> Enum.join()
+    |> String.to_integer()
   end
 end
