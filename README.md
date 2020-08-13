@@ -11,6 +11,7 @@ Languages:
 - Haskell
 - NASM Assembler
 - Rust
+- Elixir
 
 <br /><br /><br />
 Notes:
