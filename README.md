@@ -13,7 +13,7 @@ Languages:
 - Rust
 - Elixir
 
-<br /><br /><br />
+<br />
 Notes:
 
 - Jest Tests for JS and Google Tests for C++ code
